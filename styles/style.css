@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+p {
+  font-family: 'Montserrat', 'sans-serif';
+  font-weight: 500;
+  font-size: 10px;
+}
+
+h1 {
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 400;
+  font-size: 36px;
+}
+
+h2 {
+  font-family: 'Montserrat', 'sans-serif';
+  font-weight: 500;
+  font-size: 18px;
+}
+
+body {
+  background-color: #f0f0f0;
+  color: white;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  width: 506px;
+  height: 319px;
+  perspective: 500px;
+  border-radius: 30px;
+  transition: transform .4s;
+}
+
+section.card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  /* transition: transform .8s; */
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+section.card > * {
+pointer-events: none;
+}
+
+section.card > section.card--side {
+  background-color: #1e1e1e;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  border-radius: 30px;
+}
+
+section.card--front {
+  padding: 1em 2em;
+}
+
+section.card--back {
+  transform: rotateY( 180deg );
+}
+
+.card__logo {
+  margin-left: auto;
+}
+
+section.card__mid {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+}
+
+div.card__icons {
+  display: flex;
+  align-items: center;
+}
+
+div.card__icons img {
+  width: 50px;
+}
+
+div.card__bottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+section.card--back {
+  padding: 3em 0;
+}
+
+div.stripe {
+  width: 100%;
+  height: 55px;
+  background: #fff;
+  flex-shrink: 0;
+}
+
+div.signature {
+  padding: 1em 2em;
+}
+
+div.signature > .signature__title {
+  margin-bottom: .5em;
+}
+
+div.signature > .signature__sign {
+  background: #fff;
+  display: inline-block;
+  color: black;
+  padding: .5em 5em .5em 1em;
+}
+
+p.info {
+  padding: 1em 2em;
+  font-size: 12px;
+}
