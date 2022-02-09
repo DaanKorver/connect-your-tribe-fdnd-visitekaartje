@@ -15,17 +15,17 @@ p {
 h1 {
   font-family: 'Roboto Mono', monospace;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 1.125em;
 }
 
 h2 {
   font-weight: 500;
-  font-size: 36px;
+  font-size: 2.25em;
 }
 
 h3 {
   font-weight: 400;
-  font-size: 18px;
+  font-size: 1.125em;
 }
 
 body {
@@ -39,6 +39,7 @@ body {
   justify-content: center;
   align-items: center;
   font-family: 'Montserrat', 'sans-serif';
+  overflow: hidden;
 }
 
 main {
@@ -54,7 +55,6 @@ div.card {
   width: 100%;
   height: 100%;
   position: relative;
-  /* transition: transform .8s; */
   transform-style: preserve-3d;
   cursor: pointer;
   box-shadow: 0px 5px 12px 5px rgba(0, 0, 0, .4);
@@ -66,7 +66,7 @@ pointer-events: none;
 }
 
 div.card > .card--side {
-  background-color: #1a1a1a;
+  background-color: #111111;
   background-image: url("./../assets/texture.jpg");
   background-size: cover;
   background-blend-mode: screen;
@@ -79,6 +79,7 @@ div.card > .card--side {
   display: flex;
   flex-direction: column;
   border-radius: 30px;
+  overflow: hidden;
 }
 
 section.card--front {
@@ -154,14 +155,122 @@ div.signature > .signature__title {
   margin-bottom: .5em;
 }
 
-div.signature > .signature__sign {
+div.signature > .signature__text {
   background: #fff;
-  display: inline-block;
+  display: inline-flex;
   color: black;
   padding: .5em 5em .5em 1em;
+  align-items: center;
+  gap: .5em;
+}
+
+div.signature > .signature__text p {
+  font-size: .7em;
+}
+
+div.signature > .signature__text img {
+  width: 1em;
 }
 
 p.info {
   padding: 1em 2em;
   font-size: 12px;
+}
+
+section.error {
+  position: absolute;
+  right: 2em;
+  bottom: 2em;
+  padding: 1em 2em;
+  width: 20em;
+  background-color: #fafafa;
+  border-radius: .5em;
+  box-shadow: 0px 2px 15px 5px rgba(0, 0, 0, .4);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  color: #1a1a1a;
+  animation: error .5s;
+}
+
+section.error h3 {
+  font-weight: bold;
+}
+
+section.error p {
+  font-size: 1em;
+}
+
+section.error.hide {
+  opacity: 0;
+  transform: translateX(2em);
+  transition: .4s opacity, .4s transform;
+}
+
+@keyframes error {
+  from {
+    opacity: 0;
+    transform: translateY(2em);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+section.error::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: .5em;
+  background-color: crimson;
+}
+
+section.error > div:first-child {
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  border: 2px solid crimson;
+  position: relative;
+}
+
+section.error > div:first-child::before {
+  content: '';
+  position: absolute;
+  width: 65%;
+  height: 2px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  background-color: crimson;
+}
+
+section.error > div:first-child::after {
+  content: '';
+  position: absolute;
+  width: 65%;
+  height: 2px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background-color: crimson;
+}
+
+.light {
+  --lx: 50%;
+  --ly: 50%;
+  position: absolute;
+  left: var(--lx);
+  top: var(--ly);
+  transform: translate(-50%, -50%);
+  opacity: .4;
+  filter: blur(6em);
+  width: 10em;
+  height: 10em;
+  background-color: #fff;
+  border-radius: 50%;
 }
