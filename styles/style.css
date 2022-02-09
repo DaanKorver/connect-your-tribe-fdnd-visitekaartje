@@ -80,6 +80,7 @@ div.card > .card--side {
   flex-direction: column;
   border-radius: 30px;
   overflow: hidden;
+  z-index: 0;
 }
 
 section.card--front {
