@@ -1,5 +1,6 @@
 const card = document.getElementById('card')
 const light = document.getElementById('light')
+const preloader = document.getElementById('preloader')
 
 //Elements that will be filled by API data
 const nameEl = document.getElementById('name')
@@ -9,12 +10,13 @@ const signatureEl = document.getElementById('signature')
 const AMPLITUDE_X = 22
 const AMPLITUDE_Y = 14
 const MEMBER_ID = 9
-let canHover = true
+let canHover = false
 
 renderCard()
 window.addEventListener('mousemove', moveCard)
 window.addEventListener('mouseout', onMouseOut)
 card.addEventListener('click', clickCard)
+preloader.style.setProperty('--opacity', '1')
 
 function clickCard() {
   if(!canHover) {
@@ -67,31 +69,61 @@ async function getStudentData(memberId) {
     })
     return student
   } catch(err) {
-    setError()
+    setState('error')
     throw new Error(err)
   }
 }
 
 async function renderCard() {
   const {bio, name, surname, githubHandle} = await getStudentData(MEMBER_ID)
+  setState('loaded')
   nameEl.innerText = `${name} ${surname}`
   bioEl.innerText = bio
   signatureEl.innerText = githubHandle
 }
 
-function setError() {
+function setState(state) {
+  setTimeout(()=>{
+    switch(state) {
+      case 'loaded':
+        setLoaded()
+      break;
+      case 'error':
+        setError('API Error', 'Failed to fetch the API.')
+      break;
+    }
+    hidePreloader()
+  },1200)
+}
+
+function setLoaded() {
+  setTimeout(()=>{
+    card.style.transition = "1s transform cubic-bezier(0.215, 0.610, 0.355, 1)"
+    card.style.transform = "scale(1) rotateX(0deg) rotateY(0deg)"
+    setTimeout(()=>{
+      canHover = true
+    }, 1000)
+  }, 400)
+}
+
+function setError(title, body) {
   const errEl = document.createElement('section')
   errEl.classList.add('error')
-  errEl.insertAdjacentHTML('beforeend', `
-    <div>
-    </div>
-    <div>
-      <h3>API Error</h3>
-      <p>Failed to fetch.</p>
-    </div>
+  errEl.insertAdjacentHTML('beforeend',
+  `
+  <img src="./assets/error.gif" alt="Dog floating, failed to fetch" />
+  <div>
+    <h3>${title}</h3>
+    <p>${body}</p>
+  </div>
   `)
-  setTimeout(()=>{
-    errEl.classList.add("hide")
-  },6000)
   document.body.appendChild(errEl)
+}
+
+function hidePreloader() {
+  preloader.style.setProperty('--opacity', '0')
+  preloader.style.setProperty('--scale', '.9')
+  setTimeout(()=>{
+    document.body.removeChild(preloader)
+  },400)
 }
